@@ -1,0 +1,9 @@
+.#*
+*~
+/wtplan
+/wtplan-web
+/bin
+src/wtplan-web/textfiles.go
+src/wtplan-web/wtplan-web
+src/wtplan/wtplan
+src/wtplan/version.go

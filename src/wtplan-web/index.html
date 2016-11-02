@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<!--
+// Copyright 2017 Kjell Winblad (kjellwinblad@gmail.com, http://winsh.me)
+// License: MIT License, see the LICENSE file
+-->
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      .grayOnHover:hover {background-color: yellow;}
+    </style>
+  </head>
+  <body>
+    <div id="entry_point">Loading...</div>
+    <script src="lib/zepto.js"></script>
+    <script src="utility_functions.js"></script>
+    <script src="remote_commands.js"></script>
+    <script src="component.js"></script>
+    <script src="flow_view.js"></script>
+    <script src="day_list.js"></script>
+    <script src="day_list_day.js"></script>
+    <script src="day_list_item.js"></script>
+    <script src="calendar_item.js"></script>
+    <script src="edit_item_view.js"></script>
+    <script src="login_view.js"></script>
+    <script src="main_page.js"></script>
+    <script>
+      $(document).ready(function(){
+      WTPLAN.loginToken = "NOT_AUTHENTICATED";
+      var showLogoutButton = WTPLAN.loginToken === "NOT_AUTHENTICATED";
+      new WTPLAN.MainPage(showLogoutButton).renderAt($("#entry_point"));
+      });
+    </script>
+  </body>
+</html>

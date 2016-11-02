@@ -1,0 +1,101 @@
+.TH WTPLAN 1
+.SH NAME
+wtplan VERSION \- keeps track of events with a command line interface or a web interface
+.SH SYNOPSIS
+.B wtplan
+[[\fB\-\-version\fR] | [\fB\-h\fR] | [\fB\-\-help\fR]
+
+.B wtplan\fR [\fB\-c\fR \fI<path>\fR] | [\fB\-\-config_dir\fR \fI<path>\fR]]
+
+      \fB show\fR [\fINUMBER_OF_DAYS\fR] | [\fIISO_DATE\fR [\fINUMBER_OF_DAYS\fR]]
+
+      \fB add\fR [\fIISO_DATE\fR  [\fIDURATION\fR [\fIDESCRIPTION\fR]]]
+
+      \fB remove\fR \fIID\fR ...
+
+      \fB edit\fR \fIID\fR
+
+      \fB git\fR \fIGIT_PARAMETER\fR ...
+
+      \fB web\fR [\fB\-\-address\fR \fIADDRESS\fR] [\fB\-\-password\fR \fIPASSWORD\fR]
+
+.SH DESCRIPTION
+.B wtplan
+manages a calendar with events. Every event has a start time, a duration and a description.
+\fBwtplan\fR provides both a command line interface (see section \fBCOMMAND LINE INTERFACE\fR) as well as web based interface (see section \fBWEB INTERFACE\fR).
+\fBwtplan\fR integrates with git to make it easy to keep calendar data in-sync between several computers (see section \fBGIT INTEGRATION\fR).
+The calendar data as well as configuration files are by default located in \fI~/.wtplan\fR but this directory can be changed with the \fB\-c\fR or \fB\-\-config_dir\fR parameters.
+.SH OPTIONS
+.TP
+.BR \-h ", " \-\-help
+Shows the help text.
+.TP
+.BR \-\-version
+Shows version information
+.TP
+.BR \-c " " \fI<path>\fR ", " \-\-config_dir " " \fI<path>\fR
+Specifies a directory for the configuration file and the data file other than the default \fI~/.wtplan\fR.
+
+.SH COMMAND LINE INTERFACE
+The command line interface makes it possible to show and modify the calendar data from a command line console.
+The \fBadd\fR command and the \fBedit\fR command may open an editor to edit the calendar item if not enough arguments are specified.
+By default the editor nano is used but this can be changed using the configuration variable \fIeditor_command\fR in \fI~/wtplan/config.json\fR.
+
+The wtplan commands are:
+ \fBshow\fR   Show calendar items. Examples:
+        \fBwtplan show 10\fR              (shows today and the following 9 days)
+        \fBwtplan show 2016-10-30 10\fR   (shows 2016-10-30 and the following 9 days)
+        \fBwtplan show 2016-10 10\fR      (shows 2016-10-01 and the following 9 days)
+        \fBwtplan show 2016 365\fR        (shows 2016-01-01 and the following 364 days)
+ \fBadd\fR    Add calendar item. Examples:
+        \fBwtplan add\fR    (adds an item using the editor -- see ~/wtplan/config.json)
+        \fBwtplan add 2016-10-30\fR                    (adds an item using the editor)
+        \fBwtplan add 2016-10-30 NA\fR                 (adds an item using the editor)
+        \fBwtplan add 2016-10-30T14:10 1h10m "table tennis"\fR          (adds an item)
+ \fBremove\fR Remove calendar item. Examples:
+        \fBwtplan remove 7\fR       (removes item with ID 7,
+                              use the show command to show IDs of items)
+        \fBwtplan remove 7 5 3\fR   (removes several items)
+ \fBedit\fR   Edits calendar item. Examples:
+        \fBwtplan edit 7\fR (edit item with ID 7 using editor)
+ \fBgit\fR    Run git command in the calendar directory. Example:
+        \fBwtplan git remote add origin https://gitlab.com/user/calendar.git\fR
+ \fBweb\fR    Starts the wtplan web interface. Examples:
+        \fBwtplan web\fR         (Starts the web interface at the default port 8005)
+        \fBwtplan web --address :8700 --password mypass\fR
+                   (Starts the web interface at port 8700 with password mypass)
+.SH WEB INTERFACE
+The web interface is started with the \fBwtplan web\fR command.
+By default the web interface listen to port \fI8005\fR.
+The web interface can then be accessed by pointing a web browser to the address \fIhttp://localhost:8005\fR or \fIhttp://0.0.0.0:8005\fR.
+For example, the command \fBfirefox --new-window http://localhost:8005\fR will open the web interface using the firefox web browser if it is installed in your system.
+The port and address that the web interface listen to can be changed by specifying the \fB--address\fR option.
+The command \fBwtplan web --address :8700\fR will start the web interface on port 8700 instead of the default port.
+
+The \fB--password\fR option can be used to protect the web interface with a password.
+Running the command \fBwtplan web --password mySecretPass\fR will start the web interface protected by the password \fImySecretPass\fR.
+.SH GIT INTEGRATION
+The purpose of the git integration is to make it more convenient to synchronize the calendar data between several computers using the git version control system.
+A prerequirement for using the git integration is that git is installed on your system.
+
+To initiate a git repository for your calendar data, run the command \fBwtplan git init\fR.
+This will create a git repository in the default wtplan configuration folder \fI~/.wtplan\fR.
+Typically, you want to synchronize your calendar data with a remote repository.
+To set this up run \fBwtplan git remote add origin yourRemoteGitRepo\fR.
+By default, wtplan will add and commit changes to the calendar data to the repository if it detects that \fI~/.wtplan\fR is a git repository.
+For example, running the command \fBwtplan add 2016-10-30T14:10 1h10m "table tennis"\fR will run \fBgit add data.json\fR and \fBgit commit -m "Change!"\fR in the \fI~/.wtplan\fR folder after adding the event.
+Note that the configuration variable \fIpost_change_commands\fR in \fI~/.wtplan/config.json\fR will be changed to include those two git commands automatically when the first calendar change is done after initializing a git repository in the configuration directory if the configuration variable \fIauto_add_post_change_commands_if_git_repo\fR is set to \fBtrue\fR.
+The \fIpost_change_commands\fR variable can then be modified if one wants to run other commands when the calendar data is changed.
+For example, setting the \fIpost_change_commands\fR variable to \fI[["git", "add", "data.json"], ["git", "commit", "-m", "Change!"], ["git", "push"]]\fR will also run the \fBgit push\fR command after committing the change.
+
+.SH AUTHOR
+
+Kjell Winblad (kjellwinblad@gmail.com, http://winsh.me)
+
+.SH REPORTING BUGS
+
+Bugs can be reported at the projects github page <http://github.com/kjellwinblad/wtplan>
+
+.SH COPYRIGHT
+
+Copyright © 2017 Kjell Winblad. License MIT <https://opensource.org/licenses/MIT>.
