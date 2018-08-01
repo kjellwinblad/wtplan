@@ -63,20 +63,20 @@ func (a byDate) Less(i, j int) bool {
 //Helper methods for calendarItem
 func (c calendarItem) startDate() time.Time {
 	t, _ := time.Parse(time.RFC3339, c.Date)
+	t = t.Add(1*time.Microsecond) // Makes sure that a time will not happen between days
 	t = t.In(time.Local)
 	return t
 }
 
 func (c calendarItem) endDate() time.Time {
-	t, _ := time.Parse(time.RFC3339, c.Date)
 	match := durationRegExp.FindStringSubmatch(c.Duration)
 	if match[1] == "NA" {
-		return t
+		return c.startDate()
 	}
 	hours, _ := strconv.Atoi(match[2])
 	minutes, _ := strconv.Atoi(match[3])
 	duration := time.Duration(time.Hour*time.Duration(hours) + time.Minute*time.Duration(minutes))
-	return t.Add(duration).In(time.Local)
+	return c.startDate().Add(duration).In(time.Local)
 }
 
 //Error handling function

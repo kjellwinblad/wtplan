@@ -14,7 +14,8 @@ var WTPLAN = WTPLAN || {};
   };
 
   WTPLAN.CalendarItem.prototype.startDate = function() {
-    return new Date(this.date);
+      return new Date(new Date(this.date).valueOf() + 1);
+      // (One ms is added to avoid being bwtween days)
   };
 
   WTPLAN.CalendarItem.prototype.endDate = function() {
