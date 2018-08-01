@@ -13,7 +13,7 @@ See the man page (`wtplan.1`) for more details
 Features
 --------
 
-* command line interfaces
+* command line interface
 * web interface
   * optional password authentication
 * git integration
