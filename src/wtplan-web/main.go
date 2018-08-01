@@ -234,6 +234,12 @@ func main() {
 	http.HandleFunc("/edit_calendar_item", editCalendarItemRequest)
 	http.HandleFunc("/remove_calendar_item", removeCalendarItemRequest)
 	http.HandleFunc("/logout", logoutRequest)
-	fmt.Println("Starting wtplan web at http://"+ *addressPtr)
+	address := ""
+	if *addressPtr == ":8005" {
+		address = "localhost:8005"
+	} else {
+		address = *addressPtr
+	}
+	fmt.Println("Starting wtplan web at http://"+address)
 	http.ListenAndServe(*addressPtr, nil)
 }
