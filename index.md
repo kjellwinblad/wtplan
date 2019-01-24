@@ -1,13 +1,15 @@
 ## wtplan - web terminal planner 
 
-wtplan helps you manage a calendar. The calendar can be managed from a
-command line interface and/or a web interface. The calendar data is
-stored in a simple text file (located in `~/.wtplan` by
-default). wtplan integrates with git to make backup and
-synchronization between multiple computers convenient.
+The *wtplan* application is a computer program that helps you manage a
+calendar. The calendar can be managed from a command line interface
+and/or a web interface. The calendar data is stored in a simple text
+file (located in `~/.wtplan` by default). wtplan integrates with git
+to make backup and synchronization between multiple computers
+convenient.
 
 
-See the man page ([wtplan.1](/man_page.html)) for more details
+* [Documentation (man page)](/man_page.html)
+* [Source code](https://github.com/kjellwinblad/wtplan)
 
 Features
 --------
@@ -16,7 +18,7 @@ Features
 * web interface
   * optional password authentication
 * git integration
-* simple json based data format
+* simple JSON based data format
 
 Requirements
 ------------
