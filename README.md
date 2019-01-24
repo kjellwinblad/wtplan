@@ -8,7 +8,7 @@ default). wtplan integrates with git to make backup and
 synchronization between multiple computers convenient.
 
 
-See the man page (`wtplan.1`) for more details
+See the man page ([wtplan.1](/man_page.html)) for more details
 
 Features
 --------
