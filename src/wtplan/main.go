@@ -456,7 +456,7 @@ func webCommand(args []string) {
 
 func printHelpText() {
 	fmt.Println(
-		`usage: wtcal <command> [<args>]
+		`usage: wtplan <command> [<args>]
 
        The wtplan commands are:
         show   Show calendar items. Examples:
