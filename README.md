@@ -1,4 +1,4 @@
-wtplan - web terminal planner 
+wtplan - web terminal planner
 =============================
 
 wtplan helps you manage a calendar. The calendar can be managed from a
@@ -9,6 +9,9 @@ synchronization between multiple computers convenient.
 
 
 See the man page ([wtplan.1](http://wtplan.winsh.me/man_page.html)) for more details
+
+* [Website](http://wtplan.winsh.me/)
+* [Screenshots](http://wtplan.winsh.me/screenshots.html)
 
 Features
 --------
