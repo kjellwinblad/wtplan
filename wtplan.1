@@ -62,15 +62,15 @@ The wtplan commands are:
         \fBwtplan git remote add origin https://gitlab.com/user/calendar.git\fR
  \fBweb\fR    Starts the wtplan web interface. Examples:
         \fBwtplan web\fR         (Starts the web interface at the default port 8005)
-        \fBwtplan web --address :8700 --password mypass\fR
+        \fBwtplan web --address 127.0.0.1:8700 --password mypass\fR
                    (Starts the web interface at port 8700 with password mypass)
 .SH WEB INTERFACE
 The web interface is started with the \fBwtplan web\fR command.
 By default the web interface listen to port \fI8005\fR.
-The web interface can then be accessed by pointing a web browser to the address \fIhttp://localhost:8005\fR or \fIhttp://0.0.0.0:8005\fR.
-For example, the command \fBfirefox --new-window http://localhost:8005\fR will open the web interface using the firefox web browser if it is installed in your system.
+The web interface can then be accessed by pointing a web browser to the address \fIhttp://127.0.0.1:8005\fR.
+For example, the command \fBfirefox --new-window http://127.0.0.1:8005\fR will open the web interface using the firefox web browser if it is installed in your system.
 The port and address that the web interface listen to can be changed by specifying the \fB--address\fR option.
-The command \fBwtplan web --address :8700\fR will start the web interface on port 8700 instead of the default port.
+The command \fBwtplan web --address 0.0.0.0:8700\fR will start the web interface on port 8700 instead of the default port, and make the web interface available from external machines.
 
 The \fB--password\fR option can be used to protect the web interface with a password.
 Running the command \fBwtplan web --password mySecretPass\fR will start the web interface protected by the password \fImySecretPass\fR.
