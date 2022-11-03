@@ -202,7 +202,7 @@ func createNewAuthenticationToken() string {
 }
 
 func main() {
-	addressPtr := flag.String("address", ":8005", "The serve address (default \":8005\")")
+	addressPtr := flag.String("address", "127.0.0.1:8005", "The serve address (default \"127.0.0.1:8005\")")
 	passwordPtr := flag.String("password", "", "The password")
 	flag.Parse()
 	if *passwordPtr == "" {
@@ -234,12 +234,6 @@ func main() {
 	http.HandleFunc("/edit_calendar_item", editCalendarItemRequest)
 	http.HandleFunc("/remove_calendar_item", removeCalendarItemRequest)
 	http.HandleFunc("/logout", logoutRequest)
-	address := ""
-	if *addressPtr == ":8005" {
-		address = "localhost:8005"
-	} else {
-		address = *addressPtr
-	}
-	fmt.Println("Starting wtplan web at http://"+address)
+	fmt.Println("Starting wtplan web at http://"+*addressPtr)
 	http.ListenAndServe(*addressPtr, nil)
 }
