@@ -10,12 +10,14 @@ export VERSIONSTR=${VERSION}
 all: wtplan wtplan-web
 
 wtplan: src/wtplan/main.go
-	${GO} generate wtplan
-	${GO} build wtplan
+	${GO} generate ./src/wtplan/main.go
+	${GO} build ./src/wtplan/main.go ./src/wtplan/version.go
+	@mv main wtplan
 
 wtplan-web: $(wildcard src/wtplan-web/*.go src/wtplan-web/*.js)
-	${GO} generate wtplan-web
-	${GO} build wtplan-web
+	${GO} generate ./src/wtplan-web/main.go
+	${GO} build ./src/wtplan-web/main.go ./src/wtplan-web/textfiles.go
+	@mv main wtplan-web
 
 clean:
 	@echo cleaning
